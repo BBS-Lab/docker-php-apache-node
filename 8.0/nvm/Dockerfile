@@ -4,7 +4,8 @@ RUN apt-get update -y && apt-get install -y \
     libpng-dev libpq-dev libzip-dev \
     mariadb-client postgresql-client \
     git netcat unzip zip gpg \
-    ca-certificates curl wget gnupg dirmngr --no-install-recommends
+    ca-certificates curl wget gnupg dirmngr xz-utils libatomic1 \
+    --no-install-recommends
 
 RUN mkdir -p /web/html
 
@@ -21,6 +22,10 @@ COPY apache/apache.conf /etc/apache2/conf-available/z-app.conf
 
 RUN a2enmod rewrite remoteip
 RUN a2enconf z-app
+
+ENV NVM_DIR="/web/nvm"
+
+RUN mkdir -p $NVM_DIR
 
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
 
