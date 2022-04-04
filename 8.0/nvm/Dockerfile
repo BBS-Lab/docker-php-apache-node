@@ -20,7 +20,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 COPY apache/vhost.conf /etc/apache2/sites-available/000-default.conf
 COPY apache/apache.conf /etc/apache2/conf-available/z-app.conf
 
-RUN a2enmod rewrite remoteip
+RUN a2enmod rewrite remoteip headers
 RUN a2enconf z-app
 
 ENV NVM_DIR="/web/nvm"
